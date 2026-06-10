@@ -213,6 +213,14 @@ async function withRetry<T>(fn: () => Promise<T>, attempts = 2): Promise<T> {
   throw lastErr;
 }
 
+/** 解析是否「空」（无翻译/语法/关键词）——用于「不让空值覆盖已填好的行」。 */
+function isEmptyAnalysis(a: LineAnalysis | null | undefined): boolean {
+  return (
+    !a ||
+    (!a.translation?.trim() && (a.keywords?.length ?? 0) === 0 && !a.grammar?.trim())
+  );
+}
+
 /* ------------------------------ 服务 ------------------------------ */
 
 export interface AnalyzeAllContext {
@@ -399,6 +407,9 @@ export class AiService {
 
     const writeAndPropagate = async (globalIdx: number, a: LineAnalysis) => {
       const key = this.keyOf(songId, lines[globalIdx]);
+      // 不让空结果（模型漏行 / 末尾整段重解析丢行）覆盖已经填好的行——否则会出现
+      // 「已解析的行突然回到空」的闪烁。已有好值时直接跳过这次空写入。
+      if (isEmptyAnalysis(a) && !isEmptyAnalysis(this.mem.get(key))) return;
       this.mem.set(key, a);
       if (this.persist) await this.persist.set(key, a);
       propagate(globalIdx, a);
@@ -412,6 +423,7 @@ export class AiService {
           const gi = chunk[sliceIndex];
           if (gi === undefined) return;
           const key = this.keyOf(songId, lines[gi]);
+          if (isEmptyAnalysis(a) && !isEmptyAnalysis(this.mem.get(key))) return;
           this.mem.set(key, a);
           if (this.persist) void this.persist.set(key, a);
           propagate(gi, a);
@@ -451,6 +463,20 @@ export class AiService {
       }
     } else {
       await Promise.all(chunks.map(runChunk));
+    }
+
+    // 补漏：模型有时会在一个大块里漏掉若干行。对仍为空的唯一行用更小的块再请求一次
+    // （只跑一轮，不递归）；隔离成小块能显著提高这些行的命中率。
+    if (opts.signal?.aborted) return;
+    const stillEmpty = needed.filter((i) => isEmptyAnalysis(this.mem.get(this.keyOf(songId, lines[i]))));
+    if (stillEmpty.length > 0) {
+      const RC = Math.min(CHUNK, 8);
+      const repairChunks: number[][] = [];
+      for (let i = 0; i < stillEmpty.length; i += RC) repairChunks.push(stillEmpty.slice(i, i + RC));
+      for (const chunk of repairChunks) {
+        if (opts.signal?.aborted) return;
+        await runChunk(chunk);
+      }
     }
   }
 }

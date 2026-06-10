@@ -268,7 +268,14 @@ function tolerantLineArray(text: string): unknown[] {
   } catch {
     /* fall through */
   }
-  // 3) 兜底：抢救所有完整的对象
+  // 3) 兜底：深层抢救所有带行号 i 的完整对象（与流式同等健壮：逐行对象嵌在 {"lines":[…]}
+  //    内，最终文本若被截断/夹杂杂质，只抓顶层会丢行，进而用空值覆盖已流式填好的行）。
+  const deep = salvageObjectsDeep(lead).filter(
+    (o): o is Record<string, unknown> =>
+      !!o && typeof o === "object" && Number.isInteger((o as { i?: unknown }).i),
+  );
+  if (deep.length > 0) return deep;
+  // 4) 最后退路：仅顶层对象。
   return salvageObjects(lead);
 }
 
