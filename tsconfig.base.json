@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "baseUrl": ".",
+    "paths": {
+      "@ai-lyrics/player-core": ["packages/player-core/src/index.ts"],
+      "@ai-lyrics/lyrics-core": ["packages/lyrics-core/src/index.ts"],
+      "@ai-lyrics/ai-core": ["packages/ai-core/src/index.ts"],
+      "@ai-lyrics/ui": ["packages/ui/src/index.ts"]
+    }
+  }
+}

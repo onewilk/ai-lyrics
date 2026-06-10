@@ -1,0 +1,10 @@
+export * from "./types.js";
+export { parseLrc } from "./lrc.js";
+export { getActiveLineIndex } from "./active-line.js";
+export { detectLang, targetLangCode, lyricsMatchTarget } from "./lang.js";
+export type { LangCode } from "./lang.js";
+export { LrclibProvider } from "./providers/lrclib.js";
+export type { LrclibOptions } from "./providers/lrclib.js";
+export { createMemoryCache, createLocalStorageCache } from "./cache.js";
+export { LyricsService, cacheKeyOf } from "./service.js";
+export type { LyricsServiceOptions } from "./service.js";

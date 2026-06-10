@@ -1,0 +1,27 @@
+{
+  "name": "@ai-lyrics/spicetify",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch --apply",
+    "dev": "node esbuild.mjs --watch --apply",
+    "apply": "node esbuild.mjs --apply",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@ai-lyrics/player-core": "workspace:*",
+    "@ai-lyrics/lyrics-core": "workspace:*",
+    "@ai-lyrics/ai-core": "workspace:*",
+    "@ai-lyrics/ui": "workspace:*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.3"
+  }
+}

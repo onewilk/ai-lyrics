@@ -1,0 +1,40 @@
+{
+  "name": "ai-lyrics",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI 歌词学习器 — Spicetify 扩展（先行），沉淀可复用核心，后续做 Tauri Mac App",
+  "type": "module",
+  "license": "MIT",
+  "author": "ai-lyrics contributors",
+  "homepage": "https://github.com/onewilk/ai-lyrics#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/onewilk/ai-lyrics.git"
+  },
+  "bugs": {
+    "url": "https://github.com/onewilk/ai-lyrics/issues"
+  },
+  "keywords": [
+    "spicetify",
+    "spotify",
+    "lyrics",
+    "ai",
+    "translation",
+    "language-learning",
+    "llm",
+    "ollama",
+    "lm-studio"
+  ],
+  "scripts": {
+    "build": "pnpm --filter @ai-lyrics/spicetify build",
+    "watch": "pnpm --filter @ai-lyrics/spicetify watch",
+    "apply": "pnpm --filter @ai-lyrics/spicetify apply",
+    "dev": "pnpm --filter @ai-lyrics/spicetify dev",
+    "typecheck": "tsc --noEmit -p apps/spicetify/tsconfig.json",
+    "smoke": "node scripts/run-smoke.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.3"
+  }
+}
