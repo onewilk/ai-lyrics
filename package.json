@@ -31,7 +31,8 @@
     "apply": "pnpm --filter @ai-lyrics/spicetify apply",
     "dev": "pnpm --filter @ai-lyrics/spicetify dev",
     "typecheck": "tsc --noEmit -p apps/spicetify/tsconfig.json",
-    "smoke": "node scripts/run-smoke.mjs"
+    "smoke": "node scripts/run-smoke.mjs",
+    "release": "pnpm --filter @ai-lyrics/spicetify build && cp apps/spicetify/dist/ai-lyrics.js ai-lyrics.js"
   },
   "devDependencies": {
     "esbuild": "^0.24.0",

@@ -10,7 +10,7 @@ It runs as a **Spicetify extension** (Spotify desktop client). The AI is pluggab
 
 ## Screenshot
 
-<!-- TODO: add a screenshot, e.g. docs/screenshot.png -->
+![ai-lyrics — full-page lyrics with AI translation, keywords and grammar notes](docs/preview.png)
 
 ## Features
 

@@ -1,0 +1,9 @@
+{
+  "name": "AI Lyrics",
+  "description": "Full-page lyrics with AI translation, keywords, grammar notes & examples — local (LM Studio/Ollama) or any OpenAI-compatible model.",
+  "preview": "docs/preview.png",
+  "main": "ai-lyrics.js",
+  "readme": "README.md",
+  "tags": ["lyrics", "translation", "ai", "llm", "language-learning"],
+  "authors": [{ "name": "onewilk", "url": "https://github.com/onewilk" }]
+}

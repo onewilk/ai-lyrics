@@ -10,7 +10,7 @@
 
 ## 截图
 
-<!-- TODO: 放一张运行截图，例如 docs/screenshot.png -->
+![ai-lyrics — 整页歌词 + AI 翻译/关键词/语法解析](docs/preview.png)
 
 ## 功能
 
